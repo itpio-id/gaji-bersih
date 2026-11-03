@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Hitung perkiraan PPh 21 bulanan dan gaji bersih dengan TER kategori A untuk status TK/0."
+    />
+    <title>Kalkulator Gaji Bersih — ITPIO</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="brand" role="img" aria-label="ITPIO">
+          <span class="blue">I</span><span class="red">T</span><span class="yellow">P</span><span class="blue">I</span><span class="green">O</span>
+        </div>
+        <span class="header-label">Kalkulator gaji</span>
+      </div>
+    </header>
+
+    <main class="page-content">
+      <section class="calculator-card" aria-labelledby="page-title">
+        <h1 id="page-title">Kalkulator Gaji Bersih</h1>
+        <p class="intro">Hitung perkiraan potongan PPh 21 per bulan.</p>
+
+        <form id="salary-form" novalidate>
+          <label for="gross-salary">Gaji kotor per bulan</label>
+          <div class="salary-input-wrap">
+            <span class="currency-prefix" aria-hidden="true">Rp</span>
+            <input
+              id="gross-salary"
+              name="gross-salary"
+              type="text"
+              inputmode="numeric"
+              autocomplete="off"
+              maxlength="22"
+              placeholder="10.000.000"
+              aria-describedby="salary-hint salary-error"
+            />
+          </div>
+          <p class="helper" id="salary-hint">Status TK/0 · TER kategori A</p>
+          <p class="error-message" id="salary-error" role="alert"></p>
+          <button type="submit">Hitung</button>
+        </form>
+
+        <section class="results" id="results" aria-live="polite" aria-atomic="true" hidden>
+          <div class="result-row">
+            <span>PPh 21 sebulan</span>
+            <strong id="tax-result"></strong>
+          </div>
+          <div class="result-row take-home-row">
+            <span>Gaji bersih (take home pay)</span>
+            <strong id="net-result"></strong>
+          </div>
+          <p class="rate-note" id="rate-result"></p>
+        </section>
+
+        <p class="disclaimer">
+          Estimasi memakai TER bulanan kategori A. Penyesuaian masa pajak Desember belum dihitung.
+        </p>
+      </section>
+    </main>
+  </body>
+</html>

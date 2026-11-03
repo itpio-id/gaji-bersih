@@ -1,0 +1,23 @@
+# Dependensi dan hasil build
+node_modules/
+dist/
+build/
+coverage/
+
+# Rahasia dan konfigurasi lokal
+.env
+.env.*
+!.env.example
+
+# File sementara sistem dan editor
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.log
+*.swp
+.vscode/
+.idea/
+
+# Proyek lain yang sudah memiliki folder/repo sendiri
+/itpio-search/
+/photography-portfolio/
