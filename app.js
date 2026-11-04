@@ -1,6 +1,6 @@
 "use strict";
 
-// Batas dan persentase disalin dari tarif-ter.md (Lampiran PP 58 Tahun 2023, bagian A).
+// Batas dan persentase disalin dari tarif-ter.md (Lampiran PP 58 Tahun 2023, bagian A, B, dan C).
 const terKategoriA = [
   { batasMaksimum: 5_400_000, tarif: 0 },
   { batasMaksimum: 5_650_000, tarif: 0.25 },
@@ -48,7 +48,113 @@ const terKategoriA = [
   { batasMaksimum: Number.POSITIVE_INFINITY, tarif: 34 },
 ];
 
+const terKategoriB = [
+  { batasMaksimum: 6_200_000, tarif: 0 },
+  { batasMaksimum: 6_500_000, tarif: 0.25 },
+  { batasMaksimum: 6_850_000, tarif: 0.5 },
+  { batasMaksimum: 7_300_000, tarif: 0.75 },
+  { batasMaksimum: 9_200_000, tarif: 1 },
+  { batasMaksimum: 10_750_000, tarif: 1.5 },
+  { batasMaksimum: 11_250_000, tarif: 2 },
+  { batasMaksimum: 11_600_000, tarif: 2.5 },
+  { batasMaksimum: 12_600_000, tarif: 3 },
+  { batasMaksimum: 13_600_000, tarif: 4 },
+  { batasMaksimum: 14_950_000, tarif: 5 },
+  { batasMaksimum: 16_400_000, tarif: 6 },
+  { batasMaksimum: 18_450_000, tarif: 7 },
+  { batasMaksimum: 21_850_000, tarif: 8 },
+  { batasMaksimum: 26_000_000, tarif: 9 },
+  { batasMaksimum: 27_700_000, tarif: 10 },
+  { batasMaksimum: 29_350_000, tarif: 11 },
+  { batasMaksimum: 31_450_000, tarif: 12 },
+  { batasMaksimum: 33_950_000, tarif: 13 },
+  { batasMaksimum: 37_100_000, tarif: 14 },
+  { batasMaksimum: 41_100_000, tarif: 15 },
+  { batasMaksimum: 45_800_000, tarif: 16 },
+  { batasMaksimum: 49_500_000, tarif: 17 },
+  { batasMaksimum: 53_800_000, tarif: 18 },
+  { batasMaksimum: 58_500_000, tarif: 19 },
+  { batasMaksimum: 64_000_000, tarif: 20 },
+  { batasMaksimum: 71_000_000, tarif: 21 },
+  { batasMaksimum: 80_000_000, tarif: 22 },
+  { batasMaksimum: 93_000_000, tarif: 23 },
+  { batasMaksimum: 109_000_000, tarif: 24 },
+  { batasMaksimum: 129_000_000, tarif: 25 },
+  { batasMaksimum: 163_000_000, tarif: 26 },
+  { batasMaksimum: 211_000_000, tarif: 27 },
+  { batasMaksimum: 374_000_000, tarif: 28 },
+  { batasMaksimum: 459_000_000, tarif: 29 },
+  { batasMaksimum: 555_000_000, tarif: 30 },
+  { batasMaksimum: 704_000_000, tarif: 31 },
+  { batasMaksimum: 957_000_000, tarif: 32 },
+  { batasMaksimum: 1_405_000_000, tarif: 33 },
+  { batasMaksimum: Number.POSITIVE_INFINITY, tarif: 34 },
+];
+
+const terKategoriC = [
+  { batasMaksimum: 6_600_000, tarif: 0 },
+  { batasMaksimum: 6_950_000, tarif: 0.25 },
+  { batasMaksimum: 7_350_000, tarif: 0.5 },
+  { batasMaksimum: 7_800_000, tarif: 0.75 },
+  { batasMaksimum: 8_850_000, tarif: 1 },
+  { batasMaksimum: 9_800_000, tarif: 1.25 },
+  { batasMaksimum: 10_950_000, tarif: 1.5 },
+  { batasMaksimum: 11_200_000, tarif: 1.75 },
+  { batasMaksimum: 12_050_000, tarif: 2 },
+  { batasMaksimum: 12_950_000, tarif: 3 },
+  { batasMaksimum: 14_150_000, tarif: 4 },
+  { batasMaksimum: 15_550_000, tarif: 5 },
+  { batasMaksimum: 17_050_000, tarif: 6 },
+  { batasMaksimum: 19_500_000, tarif: 7 },
+  { batasMaksimum: 22_700_000, tarif: 8 },
+  { batasMaksimum: 26_600_000, tarif: 9 },
+  { batasMaksimum: 28_100_000, tarif: 10 },
+  { batasMaksimum: 30_100_000, tarif: 11 },
+  { batasMaksimum: 32_600_000, tarif: 12 },
+  { batasMaksimum: 35_400_000, tarif: 13 },
+  { batasMaksimum: 38_900_000, tarif: 14 },
+  { batasMaksimum: 43_000_000, tarif: 15 },
+  { batasMaksimum: 47_400_000, tarif: 16 },
+  { batasMaksimum: 51_200_000, tarif: 17 },
+  { batasMaksimum: 55_800_000, tarif: 18 },
+  { batasMaksimum: 60_400_000, tarif: 19 },
+  { batasMaksimum: 66_700_000, tarif: 20 },
+  { batasMaksimum: 74_500_000, tarif: 21 },
+  { batasMaksimum: 83_200_000, tarif: 22 },
+  { batasMaksimum: 95_600_000, tarif: 23 },
+  { batasMaksimum: 110_000_000, tarif: 24 },
+  { batasMaksimum: 134_000_000, tarif: 25 },
+  { batasMaksimum: 169_000_000, tarif: 26 },
+  { batasMaksimum: 221_000_000, tarif: 27 },
+  { batasMaksimum: 390_000_000, tarif: 28 },
+  { batasMaksimum: 463_000_000, tarif: 29 },
+  { batasMaksimum: 561_000_000, tarif: 30 },
+  { batasMaksimum: 709_000_000, tarif: 31 },
+  { batasMaksimum: 965_000_000, tarif: 32 },
+  { batasMaksimum: 1_419_000_000, tarif: 33 },
+  { batasMaksimum: Number.POSITIVE_INFINITY, tarif: 34 },
+];
+
+const kategoriPerStatus = {
+  "TK/0": "A",
+  "TK/1": "A",
+  "TK/2": "B",
+  "TK/3": "B",
+  "K/0": "A",
+  "K/1": "B",
+  "K/2": "B",
+  "K/3": "C",
+};
+
+const tarifPerKategori = {
+  A: terKategoriA,
+  B: terKategoriB,
+  C: terKategoriC,
+};
+
 const salaryInput = document.querySelector("#gross-salary");
+const statusInput = document.querySelector("#ptkp-status");
+const statusHint = document.querySelector("#status-hint");
 const errorMessage = document.querySelector("#salary-error");
 const results = document.querySelector("#results");
 const grossResult = document.querySelector("#gross-result");
@@ -95,7 +201,11 @@ function updateResults() {
     return;
   }
 
-  const tingkat = terKategoriA.find((baris) => gajiKotor <= baris.batasMaksimum);
+  const status = statusInput.value;
+  const kategori = kategoriPerStatus[status];
+  const tingkat = tarifPerKategori[kategori].find(
+    (baris) => gajiKotor <= baris.batasMaksimum,
+  );
   const pph21 = Math.round(gajiKotor * (tingkat.tarif / 100));
   const gajiBersih = gajiKotor - pph21;
 
@@ -103,13 +213,28 @@ function updateResults() {
   taxResult.textContent = formatRupiah(pph21);
   netResult.textContent = formatRupiah(gajiBersih);
   rateResult.textContent =
-    "Tarif yang dipakai: " +
+    "Status PTKP " +
+    status +
+    " · TER kategori " +
+    kategori +
+    " · Tarif yang dipakai: " +
     String(tingkat.tarif).replace(".", ",") +
-    "% (TER kategori A)";
+    "%";
   results.hidden = false;
+}
+
+function updateStatusHint() {
+  statusHint.textContent = "TER kategori " + kategoriPerStatus[statusInput.value] + " dipilih otomatis.";
 }
 
 salaryInput.addEventListener("input", () => {
   formatInputAsRupiah();
   updateResults();
 });
+
+statusInput.addEventListener("change", () => {
+  updateStatusHint();
+  updateResults();
+});
+
+updateStatusHint();
