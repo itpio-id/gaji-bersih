@@ -23,11 +23,15 @@
 
     <main class="page-content">
       <section class="calculator-card" aria-labelledby="page-title">
-        <h1 id="page-title">Kalkulator Gaji Bersih</h1>
-        <p class="intro">Hitung perkiraan potongan PPh 21 per bulan.</p>
+        <div class="calculator-heading">
+          <h1 id="page-title">Kalkulator Gaji Bersih</h1>
+          <p class="intro">
+            Masukkan gaji kotor bulanan untuk melihat perkiraan PPh 21 dan gaji yang diterima.
+          </p>
+        </div>
 
-        <form id="salary-form" novalidate>
-          <label for="gross-salary">Gaji kotor per bulan</label>
+        <section class="salary-entry" aria-labelledby="salary-label">
+          <label id="salary-label" for="gross-salary">Gaji kotor per bulan</label>
           <div class="salary-input-wrap">
             <span class="currency-prefix" aria-hidden="true">Rp</span>
             <input
@@ -41,19 +45,34 @@
               aria-describedby="salary-hint salary-error"
             />
           </div>
-          <p class="helper" id="salary-hint">Status TK/0 · TER kategori A</p>
-          <p class="error-message" id="salary-error" role="alert"></p>
-          <button type="submit">Hitung</button>
-        </form>
+          <p class="helper" id="salary-hint">
+            Hasil diperbarui otomatis · Status TK/0 · TER kategori A
+          </p>
+          <p class="error-message" id="salary-error" role="status"></p>
+        </section>
 
-        <section class="results" id="results" aria-live="polite" aria-atomic="true" hidden>
-          <div class="result-row">
-            <span>PPh 21 sebulan</span>
-            <strong id="tax-result"></strong>
+        <section class="results" id="results" aria-labelledby="result-title" aria-live="polite" aria-atomic="true" hidden>
+          <div class="results-heading">
+            <h2 id="result-title">Ringkasan gaji</h2>
+            <span class="period-label">Per bulan</span>
           </div>
-          <div class="result-row take-home-row">
-            <span>Gaji bersih (take home pay)</span>
-            <strong id="net-result"></strong>
+
+          <div class="result-grid">
+            <article class="result-card">
+              <span class="result-label">Gaji kotor</span>
+              <strong class="result-value" id="gross-result"></strong>
+            </article>
+            <article class="result-card tax-card">
+              <span class="result-label">Potongan PPh 21</span>
+              <strong class="result-value" id="tax-result"></strong>
+            </article>
+            <article class="result-card net-card">
+              <div class="net-copy">
+                <span class="result-label">Gaji bersih</span>
+                <span class="net-caption">Take home pay</span>
+              </div>
+              <strong class="net-value" id="net-result"></strong>
+            </article>
           </div>
           <p class="rate-note" id="rate-result"></p>
         </section>

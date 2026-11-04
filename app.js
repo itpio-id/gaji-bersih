@@ -48,10 +48,10 @@ const terKategoriA = [
   { batasMaksimum: Number.POSITIVE_INFINITY, tarif: 34 },
 ];
 
-const form = document.querySelector("#salary-form");
 const salaryInput = document.querySelector("#gross-salary");
 const errorMessage = document.querySelector("#salary-error");
 const results = document.querySelector("#results");
+const grossResult = document.querySelector("#gross-result");
 const taxResult = document.querySelector("#tax-result");
 const netResult = document.querySelector("#net-result");
 const rateResult = document.querySelector("#rate-result");
@@ -76,29 +76,22 @@ function formatInputAsRupiah() {
 }
 
 function formatRupiah(amount) {
-  return `Rp ${new Intl.NumberFormat("id-ID", { maximumFractionDigits: 0 }).format(amount)}`;
+  return "Rp " + new Intl.NumberFormat("id-ID", { maximumFractionDigits: 0 }).format(amount);
 }
 
-salaryInput.addEventListener("input", () => {
-  formatInputAsRupiah();
+function updateResults() {
   errorMessage.textContent = "";
-});
-
-form.addEventListener("submit", (event) => {
-  event.preventDefault();
-  errorMessage.textContent = "";
-
   const digits = salaryInput.value.replace(/\D/g, "");
+
   if (!digits) {
-    errorMessage.textContent = "Masukkan gaji kotor per bulan.";
-    salaryInput.focus();
+    results.hidden = true;
     return;
   }
 
   const gajiKotor = Number(digits);
   if (!Number.isSafeInteger(gajiKotor)) {
+    results.hidden = true;
     errorMessage.textContent = "Masukkan jumlah Rupiah yang valid.";
-    salaryInput.focus();
     return;
   }
 
@@ -106,8 +99,17 @@ form.addEventListener("submit", (event) => {
   const pph21 = Math.round(gajiKotor * (tingkat.tarif / 100));
   const gajiBersih = gajiKotor - pph21;
 
+  grossResult.textContent = formatRupiah(gajiKotor);
   taxResult.textContent = formatRupiah(pph21);
   netResult.textContent = formatRupiah(gajiBersih);
-  rateResult.textContent = `Tarif yang dipakai: ${String(tingkat.tarif).replace(".", ",")}% (TER kategori A)`;
+  rateResult.textContent =
+    "Tarif yang dipakai: " +
+    String(tingkat.tarif).replace(".", ",") +
+    "% (TER kategori A)";
   results.hidden = false;
+}
+
+salaryInput.addEventListener("input", () => {
+  formatInputAsRupiah();
+  updateResults();
 });
