@@ -326,7 +326,14 @@ h2 {
 
   .net-card {
     min-height: 110px;
+    flex-direction: column;
+    align-items: flex-start;
     padding: 17px;
+  }
+
+  .net-value {
+    align-self: stretch;
+    text-align: left;
   }
 }
 

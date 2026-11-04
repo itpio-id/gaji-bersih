@@ -76,7 +76,7 @@ function formatInputAsRupiah() {
 }
 
 function formatRupiah(amount) {
-  return "Rp " + new Intl.NumberFormat("id-ID", { maximumFractionDigits: 0 }).format(amount);
+  return "Rp\u00a0" + new Intl.NumberFormat("id-ID", { maximumFractionDigits: 0 }).format(amount);
 }
 
 function updateResults() {
