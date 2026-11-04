@@ -93,10 +93,55 @@
             </article>
           </div>
           <p class="rate-note" id="rate-result"></p>
+
+          <section class="breakdown" aria-labelledby="breakdown-title">
+            <h3 id="breakdown-title">Rincian perhitungan</h3>
+            <div class="breakdown-grid">
+              <section class="breakdown-group" aria-labelledby="employer-title">
+                <h4 id="employer-title">Tambahan bruto dari perusahaan</h4>
+                <dl class="breakdown-list">
+                  <div class="breakdown-row">
+                    <dt>JKK perusahaan (0,24%)</dt>
+                    <dd id="jkk-result"></dd>
+                  </div>
+                  <div class="breakdown-row">
+                    <dt>JKM perusahaan (0,3%)</dt>
+                    <dd id="jkm-result"></dd>
+                  </div>
+                  <div class="breakdown-row">
+                    <dt>BPJS Kesehatan perusahaan (4%, batas gaji Rp12.000.000)</dt>
+                    <dd id="company-health-result"></dd>
+                  </div>
+                  <div class="breakdown-row breakdown-total">
+                    <dt>Bruto untuk hitung PPh 21</dt>
+                    <dd id="taxable-gross-result"></dd>
+                  </div>
+                </dl>
+              </section>
+
+              <section class="breakdown-group" aria-labelledby="employee-title">
+                <h4 id="employee-title">Potongan dari gaji karyawan</h4>
+                <dl class="breakdown-list">
+                  <div class="breakdown-row">
+                    <dt>JHT (2%)</dt>
+                    <dd id="jht-result"></dd>
+                  </div>
+                  <div class="breakdown-row">
+                    <dt>JP (1%, batas gaji Rp11.086.300)</dt>
+                    <dd id="jp-result"></dd>
+                  </div>
+                  <div class="breakdown-row">
+                    <dt>BPJS Kesehatan (1%, batas gaji Rp12.000.000)</dt>
+                    <dd id="employee-health-result"></dd>
+                  </div>
+                </dl>
+              </section>
+            </div>
+          </section>
         </section>
 
         <p class="disclaimer">
-          Estimasi memakai TER bulanan sesuai status PTKP. Penyesuaian masa pajak Desember belum dihitung.
+          Estimasi memakai TER bulanan sesuai status PTKP. Batas upah berlaku untuk perhitungan iuran terkait. Penyesuaian masa pajak Desember belum dihitung.
         </p>
       </section>
     </main>

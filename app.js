@@ -161,6 +161,13 @@ const grossResult = document.querySelector("#gross-result");
 const taxResult = document.querySelector("#tax-result");
 const netResult = document.querySelector("#net-result");
 const rateResult = document.querySelector("#rate-result");
+const jkkResult = document.querySelector("#jkk-result");
+const jkmResult = document.querySelector("#jkm-result");
+const companyHealthResult = document.querySelector("#company-health-result");
+const taxableGrossResult = document.querySelector("#taxable-gross-result");
+const jhtResult = document.querySelector("#jht-result");
+const jpResult = document.querySelector("#jp-result");
+const employeeHealthResult = document.querySelector("#employee-health-result");
 
 function formatInputAsRupiah() {
   const cursorPosition = salaryInput.selectionStart ?? salaryInput.value.length;
@@ -203,20 +210,37 @@ function updateResults() {
 
   const status = statusInput.value;
   const kategori = kategoriPerStatus[status];
+  const jkk = Math.round(gajiKotor * 0.0024);
+  const jkm = Math.round(gajiKotor * 0.003);
+  const basisBpjsKesehatanPerusahaan = Math.min(gajiKotor, 12_000_000);
+  const bpjsKesehatanPerusahaan = Math.round(basisBpjsKesehatanPerusahaan * 0.04);
+  const brutoPph21 = gajiKotor + jkk + jkm + bpjsKesehatanPerusahaan;
+  const jht = Math.round(gajiKotor * 0.02);
+  const jp = Math.round(Math.min(gajiKotor, 11_086_300) * 0.01);
+  const bpjsKesehatanKaryawan = Math.round(Math.min(gajiKotor, 12_000_000) * 0.01);
   const tingkat = tarifPerKategori[kategori].find(
-    (baris) => gajiKotor <= baris.batasMaksimum,
+    (baris) => brutoPph21 <= baris.batasMaksimum,
   );
-  const pph21 = Math.round(gajiKotor * (tingkat.tarif / 100));
-  const gajiBersih = gajiKotor - pph21;
+  const pph21 = Math.round(brutoPph21 * (tingkat.tarif / 100));
+  const gajiBersih = gajiKotor - jht - jp - bpjsKesehatanKaryawan - pph21;
 
   grossResult.textContent = formatRupiah(gajiKotor);
   taxResult.textContent = formatRupiah(pph21);
   netResult.textContent = formatRupiah(gajiBersih);
+  jkkResult.textContent = formatRupiah(jkk);
+  jkmResult.textContent = formatRupiah(jkm);
+  companyHealthResult.textContent = formatRupiah(bpjsKesehatanPerusahaan);
+  taxableGrossResult.textContent = formatRupiah(brutoPph21);
+  jhtResult.textContent = formatRupiah(jht);
+  jpResult.textContent = formatRupiah(jp);
+  employeeHealthResult.textContent = formatRupiah(bpjsKesehatanKaryawan);
   rateResult.textContent =
     "Status PTKP " +
     status +
     " · TER kategori " +
     kategori +
+    " · Bruto PPh 21 " +
+    formatRupiah(brutoPph21) +
     " · Tarif yang dipakai: " +
     String(tingkat.tarif).replace(".", ",") +
     "%";
