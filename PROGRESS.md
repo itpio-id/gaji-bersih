@@ -14,6 +14,7 @@ Kalkulator berjalan sebagai halaman statis dengan HTML, CSS, dan JavaScript bias
 
 - Input gaji kotor bulanan otomatis diformat sebagai Rupiah saat diketik dan hasil diperbarui langsung.
 - Tombol **Hitung** menerapkan status PTKP yang sedang dipilih ke hasil; perubahan status menampilkan kategori TER yang dipakai dan menunggu tombol ditekan.
+- Metode PPh 21 dapat dipilih: dipotong dari gaji karyawan atau ditunjang perusahaan dengan gross-up.
 - Iuran JKK, JKM, BPJS Kesehatan, JHT, dan JP dapat diaktifkan atau dinonaktifkan bersama (default nonaktif). Jika nonaktif, PPh 21 dihitung dari gaji kotor saja; jika aktif, rincian iuran ditampilkan dan dipakai dalam hitungan.
 - Pilihan status PTKP: TK/0, TK/1, TK/2, TK/3, K/0, K/1, K/2, dan K/3.
 - Kategori TER otomatis dipetakan dari status PTKP: kategori A untuk TK/0, TK/1, K/0; B untuk TK/2, TK/3, K/1, K/2; dan C untuk K/3.
@@ -37,15 +38,17 @@ Rincian iuran BPJS bersifat opsional dan default-nya nonaktif. Jika nonaktif, br
 ### TER dan PPh 21
 
 - Status PTKP memilih kategori A, B, atau C secara otomatis.
-- Tarif dipilih dari rentang TER kategori terkait berdasarkan bruto PPh 21 di atas.
-- PPh 21 bulanan = bruto PPh 21 × tarif TER.
+- Tarif dipilih dari rentang TER kategori terkait berdasarkan bruto kena pajak.
+- Metode dipotong dari gaji: PPh 21 bulanan = bruto sebelum tunjangan PPh × tarif TER; PPh dikurangi dari gaji bersih.
+- Metode gross-up: tunjangan PPh dari perusahaan ditambahkan ke bruto kena pajak, lalu PPh dan tarif TER dihitung ulang sampai tunjangan sama dengan PPh terutang. PPh dibayar perusahaan dan tidak dikurangi lagi dari gaji bersih karyawan.
 
 ### Potongan karyawan dan gaji bersih
 
 - JHT = 2% × gaji kotor.
 - JP = 1% × nilai terendah antara gaji kotor dan Rp11.086.300.
 - BPJS Kesehatan karyawan = 1% × nilai terendah antara gaji kotor dan Rp12.000.000.
-- Gaji bersih = gaji kotor − JHT − JP − BPJS Kesehatan karyawan − PPh 21.
+- Metode potong dari gaji: gaji bersih = gaji kotor − iuran karyawan − PPh 21.
+- Metode gross-up: gaji bersih = gaji kotor − iuran karyawan; PPh 21 dibayar dari tunjangan perusahaan.
 
 ### Contoh verifikasi
 
@@ -55,6 +58,8 @@ Untuk TK/0 dengan gaji kotor Rp10.000.000, hasilnya bruto PPh 21 Rp10.454.000, T
 
 - [PP 58 Tahun 2023 — PDF resmi JDIH Kementerian Keuangan](https://jdih.kemenkeu.go.id/api/download/e47c3fc4-a912-4bf1-bcad-335fee3f71f8/2023pp058.pdf)
 - [PP 58 Tahun 2023 — Direktorat Jenderal Pajak](https://www.pajak.go.id/id/peraturan/tarif-pemotongan-pajak-penghasiian-pasal-21-atas-penghasilan)
+- [PMK 168 Tahun 2023 — PDF resmi JDIH Kementerian Keuangan](https://jdih.kemenkeu.go.id/download/e60a82e0-b218-40f5-9d18-b924aa1e11ce/2023pmkeuangan168.pdf)
+- [Penghitungan TER dengan metode gross-up — Direktorat Jenderal Pajak](https://stats.pajak.go.id/id/artikel/penghitungan-ter-mau-terima-gaji-utuh-di-gross-saja)
 
 ## Link proyek
 

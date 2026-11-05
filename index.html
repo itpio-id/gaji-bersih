@@ -66,6 +66,16 @@
               <p class="helper" id="status-hint">TER kategori A dipilih. Tekan Hitung untuk memakai status ini.</p>
             </div>
           </div>
+          <div class="tax-method-field">
+            <label for="tax-method">Metode PPh 21</label>
+            <div class="ptkp-select-wrap">
+              <select id="tax-method" name="tax-method" aria-describedby="tax-method-hint">
+                <option value="employee" selected>PPh 21 dipotong dari gaji</option>
+                <option value="gross-up">PPh 21 ditunjang perusahaan (gross-up)</option>
+              </select>
+            </div>
+            <p class="helper" id="tax-method-hint">Tekan Hitung setelah memilih metode.</p>
+          </div>
           <div class="bpjs-option">
             <label class="checkbox-option" for="include-bpjs">
               <input id="include-bpjs" name="include-bpjs" type="checkbox" aria-describedby="bpjs-hint" />
@@ -91,7 +101,7 @@
               <strong class="result-value" id="gross-result"></strong>
             </article>
             <article class="result-card tax-card">
-              <span class="result-label">Potongan PPh 21</span>
+              <span class="result-label" id="tax-result-label">Potongan PPh 21</span>
               <strong class="result-value" id="tax-result"></strong>
             </article>
             <article class="result-card net-card">
@@ -103,6 +113,26 @@
             </article>
           </div>
           <p class="rate-note" id="rate-result"></p>
+
+          <section class="breakdown" id="grossup-breakdown" aria-labelledby="grossup-title" hidden>
+            <h3 id="grossup-title">Rincian gross-up perusahaan</h3>
+            <div class="breakdown-group grossup-group">
+              <dl class="breakdown-list">
+                <div class="breakdown-row">
+                  <dt>Bruto sebelum tunjangan PPh 21</dt>
+                  <dd id="grossup-base-result"></dd>
+                </div>
+                <div class="breakdown-row">
+                  <dt>Tunjangan PPh 21 dari perusahaan</dt>
+                  <dd id="grossup-allowance-result"></dd>
+                </div>
+                <div class="breakdown-row breakdown-total">
+                  <dt>Bruto setelah gross-up</dt>
+                  <dd id="grossup-final-gross-result"></dd>
+                </div>
+              </dl>
+            </div>
+          </section>
 
           <section class="breakdown" id="bpjs-breakdown" aria-labelledby="breakdown-title" hidden>
             <h3 id="breakdown-title">Rincian perhitungan</h3>

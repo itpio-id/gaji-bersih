@@ -158,9 +158,12 @@ const statusHint = document.querySelector("#status-hint");
 const errorMessage = document.querySelector("#salary-error");
 const calculateButton = document.querySelector("#calculate-button");
 const bpjsToggle = document.querySelector("#include-bpjs");
+const taxMethodInput = document.querySelector("#tax-method");
 const results = document.querySelector("#results");
 const bpjsBreakdown = document.querySelector("#bpjs-breakdown");
+const grossUpBreakdown = document.querySelector("#grossup-breakdown");
 const grossResult = document.querySelector("#gross-result");
+const taxResultLabel = document.querySelector("#tax-result-label");
 const taxResult = document.querySelector("#tax-result");
 const netResult = document.querySelector("#net-result");
 const rateResult = document.querySelector("#rate-result");
@@ -171,6 +174,9 @@ const taxableGrossResult = document.querySelector("#taxable-gross-result");
 const jhtResult = document.querySelector("#jht-result");
 const jpResult = document.querySelector("#jp-result");
 const employeeHealthResult = document.querySelector("#employee-health-result");
+const grossUpBaseResult = document.querySelector("#grossup-base-result");
+const grossUpAllowanceResult = document.querySelector("#grossup-allowance-result");
+const grossUpFinalGrossResult = document.querySelector("#grossup-final-gross-result");
 
 function formatInputAsRupiah() {
   const cursorPosition = salaryInput.selectionStart ?? salaryInput.value.length;
@@ -224,19 +230,64 @@ function updateResults(showEmptyError = false) {
   const bpjsKesehatanPerusahaan = includeBpjs
     ? Math.round(basisBpjsKesehatanPerusahaan * 0.04)
     : 0;
-  const brutoPph21 = gajiKotor + jkk + jkm + bpjsKesehatanPerusahaan;
+  const brutoSebelumGrossUp = gajiKotor + jkk + jkm + bpjsKesehatanPerusahaan;
   const jht = includeBpjs ? Math.round(gajiKotor * 0.02) : 0;
   const jp = includeBpjs ? Math.round(Math.min(gajiKotor, 11_086_300) * 0.01) : 0;
   const bpjsKesehatanKaryawan = includeBpjs
     ? Math.round(Math.min(gajiKotor, 12_000_000) * 0.01)
     : 0;
-  const tingkat = tarifPerKategori[kategori].find(
-    (baris) => brutoPph21 <= baris.batasMaksimum,
-  );
-  const pph21 = Math.round(brutoPph21 * (tingkat.tarif / 100));
-  const gajiBersih = gajiKotor - jht - jp - bpjsKesehatanKaryawan - pph21;
+  const isGrossUp = taxMethodInput.value === "gross-up";
+  if (!Number.isSafeInteger(brutoSebelumGrossUp)) {
+    results.hidden = true;
+    errorMessage.textContent = "Jumlah penghasilan terlalu besar untuk dihitung dengan aman.";
+    return;
+  }
+
+  let tunjanganPph21 = 0;
+  let brutoPph21 = brutoSebelumGrossUp;
+  let tingkat;
+  let pph21;
+
+  if (isGrossUp) {
+    let grossUpConverged = false;
+    for (let iterasi = 0; iterasi < 100; iterasi += 1) {
+      brutoPph21 = brutoSebelumGrossUp + tunjanganPph21;
+      if (!Number.isSafeInteger(brutoPph21)) {
+        results.hidden = true;
+        errorMessage.textContent = "Jumlah penghasilan terlalu besar untuk dihitung dengan aman.";
+        return;
+      }
+
+      tingkat = tarifPerKategori[kategori].find(
+        (baris) => brutoPph21 <= baris.batasMaksimum,
+      );
+      pph21 = Math.round(brutoPph21 * (tingkat.tarif / 100));
+      if (pph21 === tunjanganPph21) {
+        grossUpConverged = true;
+        break;
+      }
+      tunjanganPph21 = pph21;
+    }
+
+    if (!grossUpConverged) {
+      results.hidden = true;
+      errorMessage.textContent = "Perhitungan gross-up belum mencapai hasil yang stabil.";
+      return;
+    }
+  } else {
+    tingkat = tarifPerKategori[kategori].find(
+      (baris) => brutoPph21 <= baris.batasMaksimum,
+    );
+    pph21 = Math.round(brutoPph21 * (tingkat.tarif / 100));
+  }
+
+  const potonganKaryawan = jht + jp + bpjsKesehatanKaryawan;
+  const gajiBersih = gajiKotor - potonganKaryawan - (isGrossUp ? 0 : pph21);
 
   grossResult.textContent = formatRupiah(gajiKotor);
+  taxResultLabel.textContent = isGrossUp
+    ? "PPh 21 ditunjang perusahaan"
+    : "Potongan PPh 21";
   taxResult.textContent = formatRupiah(pph21);
   netResult.textContent = formatRupiah(gajiBersih);
   jkkResult.textContent = formatRupiah(jkk);
@@ -247,6 +298,10 @@ function updateResults(showEmptyError = false) {
   jpResult.textContent = formatRupiah(jp);
   employeeHealthResult.textContent = formatRupiah(bpjsKesehatanKaryawan);
   bpjsBreakdown.hidden = !includeBpjs;
+  grossUpBaseResult.textContent = formatRupiah(brutoSebelumGrossUp);
+  grossUpAllowanceResult.textContent = formatRupiah(tunjanganPph21);
+  grossUpFinalGrossResult.textContent = formatRupiah(brutoPph21);
+  grossUpBreakdown.hidden = !isGrossUp;
   rateResult.textContent =
     "Status PTKP " +
     status +
@@ -257,7 +312,9 @@ function updateResults(showEmptyError = false) {
     " · Tarif yang dipakai: " +
     String(tingkat.tarif).replace(".", ",") +
     "% · " +
-    (includeBpjs ? "Iuran BPJS aktif" : "Tanpa iuran BPJS");
+    (includeBpjs ? "Iuran jaminan/kesehatan aktif" : "Tanpa iuran jaminan/kesehatan") +
+    " · " +
+    (isGrossUp ? "Gross-up perusahaan" : "PPh dipotong dari gaji");
   results.hidden = false;
 }
 

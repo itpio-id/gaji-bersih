@@ -358,6 +358,8 @@ h2 {
   background: #fbfcfe;
 }
 
+.grossup-group { max-width: 100%; }
+
 .breakdown-group h4 {
   margin: 0 0 12px;
   color: var(--ink);
@@ -417,6 +419,8 @@ h2 {
   border-radius: 9px;
   background: #fff;
 }
+
+.tax-method-field { margin-top: 16px; }
 
 .checkbox-option {
   display: flex;
