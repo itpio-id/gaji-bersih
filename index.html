@@ -66,6 +66,15 @@
               <p class="helper" id="status-hint">TER kategori A dipilih. Tekan Hitung untuk memakai status ini.</p>
             </div>
           </div>
+          <div class="bpjs-option">
+            <label class="checkbox-option" for="include-bpjs">
+              <input id="include-bpjs" name="include-bpjs" type="checkbox" aria-describedby="bpjs-hint" />
+              <span>Sertakan perhitungan iuran BPJS</span>
+            </label>
+            <p class="helper" id="bpjs-hint">
+              Jika aktif, JKK, JKM, BPJS Kesehatan, JHT, dan JP masuk ke perhitungan. Tekan Hitung untuk menerapkan pilihan.
+            </p>
+          </div>
           <button class="calculate-button" id="calculate-button" type="button">Hitung</button>
           <p class="error-message" id="salary-error" role="status"></p>
         </section>
@@ -95,7 +104,7 @@
           </div>
           <p class="rate-note" id="rate-result"></p>
 
-          <section class="breakdown" aria-labelledby="breakdown-title">
+          <section class="breakdown" id="bpjs-breakdown" aria-labelledby="breakdown-title" hidden>
             <h3 id="breakdown-title">Rincian perhitungan</h3>
             <div class="breakdown-grid">
               <section class="breakdown-group" aria-labelledby="employer-title">

@@ -14,6 +14,7 @@ Kalkulator berjalan sebagai halaman statis dengan HTML, CSS, dan JavaScript bias
 
 - Input gaji kotor bulanan otomatis diformat sebagai Rupiah saat diketik dan hasil diperbarui langsung.
 - Tombol **Hitung** menerapkan status PTKP yang sedang dipilih ke hasil; perubahan status menampilkan kategori TER yang dipakai dan menunggu tombol ditekan.
+- Iuran JKK, JKM, BPJS Kesehatan, JHT, dan JP dapat diaktifkan atau dinonaktifkan bersama (default nonaktif). Jika nonaktif, PPh 21 dihitung dari gaji kotor saja; jika aktif, rincian iuran ditampilkan dan dipakai dalam hitungan.
 - Pilihan status PTKP: TK/0, TK/1, TK/2, TK/3, K/0, K/1, K/2, dan K/3.
 - Kategori TER otomatis dipetakan dari status PTKP: kategori A untuk TK/0, TK/1, K/0; B untuk TK/2, TK/3, K/1, K/2; dan C untuk K/3.
 - Kartu hasil menampilkan gaji kotor, potongan PPh 21, dan gaji bersih; hasil juga mencantumkan status, kategori, serta tarif TER yang dipakai.
@@ -23,6 +24,8 @@ Kalkulator berjalan sebagai halaman statis dengan HTML, CSS, dan JavaScript bias
 ## Aturan hitung yang dipakai
 
 Semua nilai kontribusi dan PPh 21 dibulatkan ke Rupiah terdekat dengan `Math.round`.
+
+Rincian iuran BPJS bersifat opsional dan default-nya nonaktif. Jika nonaktif, bruto untuk PPh 21 sama dengan gaji kotor dan gaji bersih sama dengan gaji kotor dikurangi PPh 21. Rumus kontribusi berikut dipakai saat opsi BPJS diaktifkan.
 
 ### Tambahan bruto dari perusahaan
 

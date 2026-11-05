@@ -410,6 +410,43 @@ h2 {
   line-height: 1.55;
 }
 
+.bpjs-option {
+  margin-top: 16px;
+  padding: 13px 14px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: #fff;
+}
+
+.checkbox-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  cursor: pointer;
+}
+
+.checkbox-option input {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
+  margin: 0;
+  padding: 0;
+  accent-color: var(--blue);
+  cursor: pointer;
+}
+
+.checkbox-option span {
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.bpjs-option .helper {
+  margin: 7px 0 0 28px;
+}
+
 .calculate-button {
   display: block;
   width: 100%;

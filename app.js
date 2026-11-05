@@ -157,7 +157,9 @@ const statusInput = document.querySelector("#ptkp-status");
 const statusHint = document.querySelector("#status-hint");
 const errorMessage = document.querySelector("#salary-error");
 const calculateButton = document.querySelector("#calculate-button");
+const bpjsToggle = document.querySelector("#include-bpjs");
 const results = document.querySelector("#results");
+const bpjsBreakdown = document.querySelector("#bpjs-breakdown");
 const grossResult = document.querySelector("#gross-result");
 const taxResult = document.querySelector("#tax-result");
 const netResult = document.querySelector("#net-result");
@@ -215,14 +217,19 @@ function updateResults(showEmptyError = false) {
 
   const status = statusInput.value;
   const kategori = kategoriPerStatus[status];
-  const jkk = Math.round(gajiKotor * 0.0024);
-  const jkm = Math.round(gajiKotor * 0.003);
+  const includeBpjs = bpjsToggle.checked;
+  const jkk = includeBpjs ? Math.round(gajiKotor * 0.0024) : 0;
+  const jkm = includeBpjs ? Math.round(gajiKotor * 0.003) : 0;
   const basisBpjsKesehatanPerusahaan = Math.min(gajiKotor, 12_000_000);
-  const bpjsKesehatanPerusahaan = Math.round(basisBpjsKesehatanPerusahaan * 0.04);
+  const bpjsKesehatanPerusahaan = includeBpjs
+    ? Math.round(basisBpjsKesehatanPerusahaan * 0.04)
+    : 0;
   const brutoPph21 = gajiKotor + jkk + jkm + bpjsKesehatanPerusahaan;
-  const jht = Math.round(gajiKotor * 0.02);
-  const jp = Math.round(Math.min(gajiKotor, 11_086_300) * 0.01);
-  const bpjsKesehatanKaryawan = Math.round(Math.min(gajiKotor, 12_000_000) * 0.01);
+  const jht = includeBpjs ? Math.round(gajiKotor * 0.02) : 0;
+  const jp = includeBpjs ? Math.round(Math.min(gajiKotor, 11_086_300) * 0.01) : 0;
+  const bpjsKesehatanKaryawan = includeBpjs
+    ? Math.round(Math.min(gajiKotor, 12_000_000) * 0.01)
+    : 0;
   const tingkat = tarifPerKategori[kategori].find(
     (baris) => brutoPph21 <= baris.batasMaksimum,
   );
@@ -239,6 +246,7 @@ function updateResults(showEmptyError = false) {
   jhtResult.textContent = formatRupiah(jht);
   jpResult.textContent = formatRupiah(jp);
   employeeHealthResult.textContent = formatRupiah(bpjsKesehatanKaryawan);
+  bpjsBreakdown.hidden = !includeBpjs;
   rateResult.textContent =
     "Status PTKP " +
     status +
@@ -248,7 +256,8 @@ function updateResults(showEmptyError = false) {
     formatRupiah(brutoPph21) +
     " · Tarif yang dipakai: " +
     String(tingkat.tarif).replace(".", ",") +
-    "%";
+    "% · " +
+    (includeBpjs ? "Iuran BPJS aktif" : "Tanpa iuran BPJS");
   results.hidden = false;
 }
 
