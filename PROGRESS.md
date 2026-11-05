@@ -13,6 +13,7 @@ Kalkulator berjalan sebagai halaman statis dengan HTML, CSS, dan JavaScript bias
 ## Fitur yang sudah selesai
 
 - Input gaji kotor bulanan otomatis diformat sebagai Rupiah saat diketik dan hasil diperbarui langsung.
+- Tombol **Hitung** menerapkan status PTKP yang sedang dipilih ke hasil; perubahan status menampilkan kategori TER yang dipakai dan menunggu tombol ditekan.
 - Pilihan status PTKP: TK/0, TK/1, TK/2, TK/3, K/0, K/1, K/2, dan K/3.
 - Kategori TER otomatis dipetakan dari status PTKP: kategori A untuk TK/0, TK/1, K/0; B untuk TK/2, TK/3, K/1, K/2; dan C untuk K/3.
 - Kartu hasil menampilkan gaji kotor, potongan PPh 21, dan gaji bersih; hasil juga mencantumkan status, kategori, serta tarif TER yang dipakai.

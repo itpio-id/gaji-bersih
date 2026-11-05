@@ -156,6 +156,7 @@ const salaryInput = document.querySelector("#gross-salary");
 const statusInput = document.querySelector("#ptkp-status");
 const statusHint = document.querySelector("#status-hint");
 const errorMessage = document.querySelector("#salary-error");
+const calculateButton = document.querySelector("#calculate-button");
 const results = document.querySelector("#results");
 const grossResult = document.querySelector("#gross-result");
 const taxResult = document.querySelector("#tax-result");
@@ -192,12 +193,16 @@ function formatRupiah(amount) {
   return "Rp\u00a0" + new Intl.NumberFormat("id-ID", { maximumFractionDigits: 0 }).format(amount);
 }
 
-function updateResults() {
+function updateResults(showEmptyError = false) {
   errorMessage.textContent = "";
   const digits = salaryInput.value.replace(/\D/g, "");
 
   if (!digits) {
     results.hidden = true;
+    if (showEmptyError) {
+      errorMessage.textContent = "Masukkan gaji kotor terlebih dahulu.";
+      salaryInput.focus();
+    }
     return;
   }
 
@@ -248,7 +253,10 @@ function updateResults() {
 }
 
 function updateStatusHint() {
-  statusHint.textContent = "TER kategori " + kategoriPerStatus[statusInput.value] + " dipilih otomatis.";
+  statusHint.textContent =
+    "TER kategori " +
+    kategoriPerStatus[statusInput.value] +
+    " dipilih. Tekan Hitung untuk memakai status ini.";
 }
 
 salaryInput.addEventListener("input", () => {
@@ -258,7 +266,8 @@ salaryInput.addEventListener("input", () => {
 
 statusInput.addEventListener("change", () => {
   updateStatusHint();
-  updateResults();
 });
+
+calculateButton.addEventListener("click", () => updateResults(true));
 
 updateStatusHint();
